@@ -1,1 +1,17 @@
-<script>window.location.replace("exp://192.168.0.119:19000/--/order_payment/success");</script>
+<script>
+  // Get the current URL
+  var currentUrl = window.location.href;
+    
+  // Extract transactionId from the current URL
+  var urlParams = new URLSearchParams(window.location.search);
+  var transactionId = urlParams.get('transactionId');
+  
+  // Check if transactionId is present in the URL
+  if (transactionId) {
+    // Construct the new URL format
+    var newUrl = "webooks://order-summary/?transactionId=" + transactionId;
+    window.location.replace(newUrl);
+  } else {
+    console.error("TransactionId not found in the current URL.");
+  }
+</script>
