@@ -1,17 +1,20 @@
 <script>
-  // Get the current URL
-  var currentUrl = window.location.href;
+  function appendQueryParams(originalUrl, targetUrl) {
+    const queryParamsStartIndex = originalUrl.indexOf('?');
     
-  // Extract transactionId from the current URL
-  var urlParams = new URLSearchParams(window.location.search);
-  var transactionId = urlParams.get('transactionId');
+    if (queryParamsStartIndex !== -1) {
+      const queryParams = originalUrl.slice(queryParamsStartIndex + 1);
+      
+      // Append the extracted query parameters to the target URL
+      targetUrl += (targetUrl.includes('?') ? '&' : '?') + queryParams;
+    }
   
-  // Check if transactionId is present in the URL
-  if (transactionId) {
-    // Construct the new URL format
-    var newUrl = "webooks://order-summary/?transactionId=" + transactionId;
-    window.location.replace(newUrl);
-  } else {
-    console.error("TransactionId not found in the current URL.");
+    return targetUrl;
   }
+  
+  const targetUrl = "webooks://order-summary/";
+  const currentUrl = window.location.href;
+  const newUrl = appendQueryParams(currentUrl, targetUrl);
+  
+  window.location.replace(newUrl);
 </script>
